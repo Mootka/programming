@@ -1,0 +1,9 @@
+﻿  snake.cpp
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(19,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(33,19): warning C4838: Преобразование из "int" в "SHORT" требует сужающего преобразования.
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(33,22): warning C4838: Преобразование из "int" в "SHORT" требует сужающего преобразования.
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(294,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(304,14): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(315,14): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  LINK : не найден или не выполнена сборка C:\Users\artem\Рабочий стол\Idea\snake\x64\Debug\snake.exe при последней инкрементной компоновке; выполняется полная компоновка
+  snake.vcxproj -> C:\Users\artem\Рабочий стол\Idea\snake\x64\Debug\snake.exe

@@ -16,7 +16,7 @@ public:
 
 	Snake(int width, int height) : width(width), height(height), score(0), gameOver(false)
 	{
-		srand(time(NULL));
+		srand((unsigned)time(NULL));
 		x = width / 2;
 		y = height / 2;
 		fructX = rand() % width;
@@ -33,6 +33,7 @@ public:
 		COORD coord = { x, y };
 		SetConsoleCursorPosition(hConsole, coord);
 	}
+
 	void CMD()
 	{
 		wchar_t name[] = L"Snake";
@@ -45,6 +46,7 @@ public:
 		SetConsoleCursorPosition(hConsole, coord);
 		ShowScrollBar(GetConsoleWindow(), SB_VERT, 0);
 	}
+
 	void Start()
 	{
 		if (level == "0")
@@ -53,7 +55,7 @@ public:
 			Color(LightBlue, Black);
 			Coordinate(19, 1); std::cout << "Easy";
 			Coordinate(15, 2); std::cout << "Max score = 50";
-			Coordinate(15, 3); std::cout << "Speed = 100 ms";
+			Coordinate(15, 3); std::cout << "Speed = 50 ms";
 			Coordinate(11, 4); std::cout << "No death from the zone";
 
 			Coordinate(45, 1); std::cout << "Normal";
@@ -61,11 +63,11 @@ public:
 			Coordinate(40, 3); std::cout << "Speed = 50 ms";
 
 			Coordinate(70, 1); std::cout << "Hard";
-			Coordinate(65, 2); std::cout << "Max score = 150";
+			Coordinate(65, 2); std::cout << "Max score = 200";
 			Coordinate(65, 3); std::cout << "Speed = 25 ms";
 
 			Coordinate(95, 1); std::cout << "God";
-			Coordinate(90, 2); std::cout << "Max score = 1000";
+			Coordinate(90, 2); std::cout << "Max score = 500";
 			Coordinate(90, 3); std::cout << "Speed = 25 ms";
 
 			for (int i = 10; i < 110; i++)
@@ -101,7 +103,7 @@ public:
 
 		if (level == "Easy" || level == "easy")
 		{
-			delay = 100;
+			delay = 50;
 			highScore = 50;
 		}
 
@@ -115,13 +117,13 @@ public:
 		else if (level == "Hard" || level == "hard")
 		{
 			delay = 25;
-			highScore = 150;
+			highScore = 200;
 		}
 
 		else if (level == "God" || level == "god")
 		{
 			delay = 25;
-			highScore = 1000;
+			highScore = 500;
 		}
 		else
 		{
@@ -200,7 +202,7 @@ public:
 			Color(LightBlue, Black);
 			std::cout << "#";
 		}
-		Coordinate(108, 12); std::cout << level;
+		Coordinate(108, 11); std::cout << level;
 		Coordinate(103, 13); std::cout << "SnakeTail: " << snakeTail;
 		Coordinate(103, 14); std::cout << "Score: " << score << "/" << highScore;
 		Coordinate(103, 15); std::cout << "Speed: " << delay;
@@ -236,7 +238,7 @@ public:
 			case 'w': wasd = 3; break;
 			case 's': wasd = 4; break;
 			case 'x': gameOver = true; break;
-			case 'p': _getch(); break;
+			case 'p': system("PAUSE>nul"); break;
 			}
 		}
 	}
@@ -257,28 +259,38 @@ public:
 			snakeTailY[i] = Y;
 			X = X2;
 			Y = Y2;
+
 		}
-		switch (wasd)
+		if (wasd == 1) { x--; }
+		if (wasd == 2) { x++; }
+		if (wasd == 3) { y--; }
+		if (wasd == 4) { y++; }
+
+		if (level == "Easy" || level == "easy")
 		{
-		case 1: x--; break;
-		case 2: x++; break;
-		case 3: y--; break;
-		case 4: y++; break;
+			if (x > width - 1) { x = 1; }
+			if (x < 1) { x = width - 1; }
+			if (y > height) { y = 0; }
+			if (y < 0) { y = height; }
+
 		}
 
-		if (x > width || x < 0 || y > height || y < 0 || x == width || x == 0)
+		else
 		{
-			gameOver = true;
+			if (x > width || x < 0 || y > height || y < 0 || x == width || x == 0)
+			{
+				gameOver = true;
+			}
 		}
-		if (score == highScore)
-		{
-			gameOver = true;
-		}
+
 		for (int i = 0; i < snakeTail; i++)
 		{
 			if (snakeTailX[i] == x && snakeTailY[i] == y)
 				gameOver = true;
 		}
+
+
+
 	}
 
 	void Apple()
@@ -288,31 +300,30 @@ public:
 		{
 			if (snakeTailX[k] == fructX && snakeTailY[k] == fructY)
 			{
-				if (delay != 10) delay = delay - 1;
+				if (delay > 10) delay = delay - 1;
 				score += 1;
 				snakeTail += 1;
-				srand(time(NULL));
+				srand((unsigned)time(NULL));
 				fructX = rand() % width;
 				fructY = rand() % height;
 			}
 		}
 		if (x == fructX && y == fructY)
 		{
-			if (delay != 10) delay -= 1;
+			if (delay > 10) delay -= 1;
 			score += 1;
 			snakeTail += 1;
-			srand(time(NULL));
+			srand((unsigned)time(NULL));
 			fructX = rand() % width;
 			fructY = rand() % height;
 		}
-
 		if (score == highScore)
 		{
 			youWin = true;
 		}
 		if (fructX > width || x < 0 || fructY > height || fructY < 0 || fructX == width || fructX == 0 || fructY == height)
 		{
-			srand(time(NULL));
+			srand((unsigned)time(NULL));
 			fructX = rand() % width;
 			fructY = rand() % height;
 		}
@@ -350,8 +361,9 @@ int main()
 	snake.Start();
 	while (!snake.GameOver() && !snake.YouWin())
 	{
-		snake.Logic();
+		
 		snake.Apple();
+		snake.Logic();
 		snake.Draw();
 		snake.Input();
 
@@ -359,11 +371,11 @@ int main()
 
 	if (snake.YouWin())
 	{
-		snake.Coordinate(52, 13); snake.Color(Snake::color::Green, Snake::color::Black); std::cout << "YOU WIN";
+		snake.Coordinate(57, 13); snake.Color(Snake::color::Green, Snake::color::Black); std::cout << "YOU WIN";
 	}
 	else
 	{
-		snake.Coordinate(52, 13); snake.Color(Snake::color::Red, Snake::color::Black); std::cout << "GAME OVER";
+		snake.Coordinate(57, 13); snake.Color(Snake::color::Red, Snake::color::Black); std::cout << "GAME OVER";
 	}
 
 	while (!_kbhit());
@@ -376,8 +388,7 @@ int main()
 	else
 	{
 		snake.Draw();
-		snake.Coordinate(52, 13); snake.Color(Snake::color::Green, Snake::color::Black); std::cout << "GooD Bye";
-		while (!_kbhit());
-		_getch();
+		snake.Coordinate(57, 13); snake.Color(Snake::color::Green, Snake::color::Black); std::cout << "GooD Bye";
+		system("PAUSE>nul");
 	}
 }

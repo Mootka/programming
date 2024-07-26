@@ -1,1 +1,4 @@
-﻿  snake.vcxproj -> C:\Users\artem\Рабочий стол\Idea\snake\x64\Debug\snake.exe
+﻿  snake.cpp
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(35,19): warning C4838: Преобразование из "int" в "SHORT" требует сужающего преобразования.
+C:\Users\artem\Рабочий стол\Idea\snake\snake.cpp(35,22): warning C4838: Преобразование из "int" в "SHORT" требует сужающего преобразования.
+  snake.vcxproj -> C:\Users\artem\Рабочий стол\Idea\snake\x64\Debug\snake.exe
